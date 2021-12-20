@@ -1,0 +1,14 @@
+[
+    {
+    "label": "Cart",
+    "value": "cart"
+  },
+  {
+    "label": "Signup",
+    "value": "signup"
+  },
+    {
+      "label": "Login",
+      "value": "login"
+    }
+]

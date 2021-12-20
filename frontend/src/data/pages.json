@@ -1,0 +1,19 @@
+[
+  {
+    "label": "Home",
+    "value": "home"
+  },
+    {
+      "label": "Shop",
+      "value": "shop"
+    },
+     {
+      "label": "News",
+      "value": "news"
+    },
+    {
+      "label": "Charities",
+      "value": "charities"
+    }
+  
+ ]

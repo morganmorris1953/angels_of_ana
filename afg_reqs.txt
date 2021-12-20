@@ -1,0 +1,52 @@
+shopping page
+landing page
+	carousel of pictures of people helped
+charities page(s)
+
+navbar
+	dropdown list? of charities to donate to partner organizations
+	helpful links
+		
+green color scheme
+
+
+
+APIs: weather, money, map
+
+
+BOUJEE AS SHIT
+tee spring shirts?
+
+
+domain is through godaddy.com
+www.angelsofana.com
+email: godaddy@morganmorris.33mail.com
+username: AngelsOfANA
+password: Saamisadog1992!
+
+
+Stripe.js
+Publishable Key: pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc
+Secret Key: sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj
+
+
+News API
+784fb075748c40ccbc65f29fe3243a33
+
+
+
+
+from newsapi import NewsApiClient
+#init
+newsapi = NewsApiClient(api_key='784fb075748c40ccbc65f29fe3243a33')
+#v1/everything
+all_articles = newsapi.get_everything(q='Afghanistan', sources='bbc-news,the-verge', domains='bbc.co.uk,techcrunch.com', from_param='2016-12-01', language='en es fr he it nl no pt ru se ud zh', sort_by='relevancy', pageSize=19)
+
+
+
+
+
+
+Commerce.js
+Live Public API Key:		pk_36783a946bd53efe601f31f45ea45211d6cb13d9be26a
+Sandbox Public API Key:	pk_test_367837d29c7614801c005aa6ba4454c3e1215275211a9
