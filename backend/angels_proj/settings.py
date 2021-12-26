@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+'django.contrib.admin',
 'django.contrib.auth',
 'django.contrib.contenttypes',
 'django.contrib.sessions',
@@ -65,7 +65,7 @@ MIDDLEWARE = [
 
 # Django All Auth config
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-AUTHENTICATION_BACKENDS = (    "django.contrib.auth.backends.ModelBackend",    "allauth.account.auth_backends.AuthenticationBackend",
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend", "allauth.account.auth_backends.AuthenticationBackend",
 )
 SITE_ID = 1 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -76,8 +76,10 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # Rest Framework config
 REST_FRAMEWORK = {    
-'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P", 'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication',    
-],
+'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P", 'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication',    
+], 'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
 }
 
 ROOT_URLCONF = 'angels_proj.urls'
@@ -153,4 +155,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'angels_app.CustomUser'
+#  AUTH_USER_MODEL = 'users.CustomUser'
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+#  CORS_ALLOW_ALL_ORIGINS = True

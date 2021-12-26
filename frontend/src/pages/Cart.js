@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import {CheckoutForm, Wrapper} from './CheckoutForm';
+import { CheckoutForm, Wrapper } from './CheckoutForm';
+// import {REACT_APP_PUBLISHABLE_KEY} from '../../.env'
 
-const stripePromise = loadStripe("pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc");
+// const stripePromise = loadStripe("pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc");
 
 const successMessage = () => {
   return (
