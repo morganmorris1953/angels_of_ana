@@ -4,34 +4,52 @@ import React, {Component} from 'react';
 import ProductRow from '../components/ProductRow.js';
 import ProductContainer from '../components/ProductContainer.js';
 import { Image, Grid, Divider } from 'semantic-ui-react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+// import { CheckoutForm, Wrapper } from './CheckoutForm';
 
-
+const stripePromise = loadStripe("pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc");
 
 function Shop(props) {
-    // const commerce = new Commerce('{pk_test_367837d29c7614801c005aa6ba4454c3e1215275211a9}', true);   //the "true" is for debug mode in commerce.js; this API key is the sandbox key, it's not possible to debug with a live key
+
+  // const options = {clientSecret:'{{CLIENT_SECRET}}'}
+  const options = ''
+return (
+  <div>
+  <h1>Shop</h1>
+<Elements stripe={stripePromise} options={options}>
+  {curl https://api.stripe.com/v1/products \
+  -u sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj: \
+  -d limit=3 \
+  -G}
+  </Elements>
+  </div>
+)
+
+
 
     {/* lists the products */}
-    {<script type="text/javascript" src="https://assets.chec-cdn.com/v2/commerce.js"></script>}
-    console.log("product: ")
-    return (
-        <div style={{ display: 'flex', flexDirection:'row', justifyContent: 'space-around', width: '1800px', height: '400px'}}>
-            <div>
-                <ProductRow/>
-            The Shop
-            </div>
-
-
-
-            <div className="App">
-      <Grid centered stackable padded relaxed>
-        <Grid.Column className='left-column' width={5}>
-        </Grid.Column>
-        <Grid.Column width={9}>
-          <ProductContainer />
-        </Grid.Column>
-      </Grid>
-    </div>
-
+    // {<script type="text/javascript" src="https://assets.chec-cdn.com/v2/commerce.js"></script>}
+    // console.log("product: ")
+    // return (
+        // <div style={{ display: 'flex', flexDirection:'row', justifyContent: 'space-around', width: '1800px', height: '400px'}}>
+            // <div>
+                // <ProductRow/>
+            // The Shop
+            // </div>
+//
+//
+//
+            // <div className="App">
+      // <Grid centered stackable padded relaxed>
+        // <Grid.Column className='left-column' width={5}>
+        // </Grid.Column>
+        // <Grid.Column width={9}>
+          // <ProductContainer />
+        // </Grid.Column>
+      // </Grid>
+    // </div>
+//
 
             {/* <ProductContainer /> */}
             {/* // commerce.products.list().then((product) => console.log(product)) */}
@@ -56,8 +74,8 @@ function Shop(props) {
             </div>
             <br /><br /><br /><br /><br /><br /><br /><br /> */}
 
-        </div>
-    )
+        // </div>
+    // )
 }
 
 export default Shop;

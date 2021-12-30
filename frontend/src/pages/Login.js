@@ -11,8 +11,10 @@ const Login = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
-      window.location.replace('http://localhost:3000/pages/dashboard');
+      console.log('$$$$$$$$$$$$$$$$$$$$$')
+      // window.location.replace('http://localhost:3000/pages/login');
     } else {
+      console.log('*************************')
       setLoading(false);
     }
   }, []);
@@ -27,7 +29,8 @@ const Login = () => {
     fetch('http://localhost:8000/api/v1/angels_app/auth/login/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          // 'X-CSRFToken': CSRF_Token
         },
         body: JSON.stringify(user)
       })
@@ -53,9 +56,9 @@ const Login = () => {
 
   return ( <
     div > {
-      loading === false && < h1 > Login < /h1>} { errors === true && < h2 > Cannot log in with provided credentials < /h2 >
+      loading === true && < h1 > Login < /h1>} { errors === true && < h2 > Cannot log in with provided credentials < /h2 >
     } {
-      loading === false && ( <
+      loading === true && ( <
         form onSubmit = {
           onSubmit
         } >
