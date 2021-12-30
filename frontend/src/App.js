@@ -34,7 +34,7 @@ function App() {
               <Route exact path='/pages/login' element={<Login />} />
               <Route exact path='/pages/logout' element={<Logout />} />
               <Route exact path='/cart' element={<Cart />} />
-              <Route exact path='/checkoutform' element={<CheckoutForm />} />
+              <Route exact path='pages/checkoutform' element={<CheckoutForm />} />
             </Routes>
           </BrowserRouter>
         </div>

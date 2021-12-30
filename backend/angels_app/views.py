@@ -7,7 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 #  from django.views import
 # Create your views here.
 
-#  stripe.api_key = 'pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc'
+import stripe
+stripe.api_key = "sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj"
+
+stripe.Product.list(limit=3)
 
 class User(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]

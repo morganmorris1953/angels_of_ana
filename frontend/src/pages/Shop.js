@@ -1,30 +1,50 @@
-// import patch1 from '../assets/6.jpeg'
-import React, {Component} from 'react';
-// import Commerce from '@chec/commerce.js';
+import React, {Component, useState, useEffect} from 'react';
 import ProductRow from '../components/ProductRow.js';
 import ProductContainer from '../components/ProductContainer.js';
 import { Image, Grid, Divider } from 'semantic-ui-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-// import { CheckoutForm, Wrapper } from './CheckoutForm';
-
-const stripePromise = loadStripe("pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc");
+{/* const stripe = require('stripe')('sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj'); */}
 
 function Shop(props) {
+const [clientSecret, setClientSecret] = useState("");
+// console.log(props)
+{/*/ const stripe = loadStripe('sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj');*/}
 
+useEffect(()=>{
+
+  const getProducts = async () => {
+    const stripe = await loadStripe("pk_test_51K3gRwB9NwtY2gLjBpnSruJs15ObuDDNbWTpc8NY9LQk9TUpcQJRIckpgIzzCMvNyhFDnuJQUenip1PKJHOzAe1h00eYXUwmUc") 
+    console.log("stripe: ", stripe)
+    
+    const products = await stripe.products.list({
+      limit: 3,
+    });
+    console.log("products: ",  products)
+    }
+  getProducts()
+}, [])
+
+// const [products, setProducts] = useState(null);
+  const options = {
+    clientSecret,
+  };
   // const options = {clientSecret:'{{CLIENT_SECRET}}'}
-  const options = ''
 return (
-  <div>
-  <h1>Shop</h1>
-<Elements stripe={stripePromise} options={options}>
-  {curl https://api.stripe.com/v1/products \
-  -u sk_test_51K3gRwB9NwtY2gLjmNEvwrWCxjBHIi3C74kktSSyudX8x0Q0uGFwlKgIWRLTlgdBzX5s4l0uI1irP28B7uKsvvbI00ZfF4wEQj: \
-  -d limit=3 \
-  -G}
-  </Elements>
-  </div>
+      <div className="App">
+
+      {clientSecret && (
+
+        {/*    <Elements options={options} stripe={stripe}> 
+console.log(stripe.products.list())
+
+        </Elements> */}
+
+      )}
+
+    </div>
 )
+
 
 
 

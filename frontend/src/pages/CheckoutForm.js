@@ -37,7 +37,7 @@ export default function CheckoutForm(props) {
  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
- 
+
   const stripe = useStripe();
   const elements = useElements();
  
