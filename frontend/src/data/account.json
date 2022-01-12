@@ -10,5 +10,9 @@
     {
       "label": "Login",
       "value": "login"
-    }
+    },
+  {
+    "label": "Logout",
+    "value": "logout"
+  }
 ]

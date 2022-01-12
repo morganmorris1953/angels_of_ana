@@ -32,13 +32,12 @@ const CARD_ELEMENT_OPTIONS = {
 };
  
 export default function CheckoutForm(props) {
+  const stripe = useStripe();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-
-  const stripe = useStripe();
   const elements = useElements();
  
   const handleSubmit = async (event) => {

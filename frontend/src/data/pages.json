@@ -1,19 +1,21 @@
-[
-  {
-    "label": "Home",
-    "value": "home"
-  },
-    {
-      "label": "Shop",
-      "value": "shop"
-    },
-     {
-      "label": "News",
-      "value": "news"
+[{
+        "label": "Home",
+        "value": "home"
     },
     {
-      "label": "Charities",
-      "value": "charities"
+        "label": "Shop",
+        "value": "shop"
+    },
+    {
+        "label": "News",
+        "value": "news"
+    },
+    {
+        "label": "Charities",
+        "value": "charities"
+    },
+    {
+        "label": "Weather",
+        "value": "weather"
     }
-  
- ]
+]

@@ -9,15 +9,15 @@ const Login = () => {
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      console.log('$$$$$$$$$$$$$$$$$$$$$')
-      // window.location.replace('http://localhost:3000/pages/login');
-    } else {
-      console.log('*************************')
-      setLoading(false);
-    }
-  }, []);
+  /* useEffect(() => { */
+    /* if (localStorage.getItem('token') !== null) { */
+      /* console.log('Token available') */
+      /* window.location.replace('http://localhost:3000/'); */
+    /* } else { */
+      /* console.log('No token in localStorage') */
+      /* setLoading(false); */
+    /* } */
+  /* }, []); */
 
   const onSubmit = e => {
     e.preventDefault();
@@ -26,26 +26,29 @@ const Login = () => {
       "email": email,
       "password": password
     };
-    fetch('http://localhost:8000/api/v1/angels_app/auth/login/', {
+    fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'X-CSRFToken': CSRF_Token
+          /* 'X-CSRFToken': CSRF_Token */
         },
         body: JSON.stringify(user)
       })
       .then((res) =>
-        // console.log(res.json())
-        // console.log(res.key)
+        // console.log(res.json()),
+        // console.log(res.key),
         res.json()
       )
       .then(data => {
-        console.log(data)
+        console.log('data: ', data)
+        console.log('user: ', user.id)
         if (data.key) {
+          console.log('success')
           localStorage.clear();
           localStorage.setItem('token', data.key);
           window.location.replace('http://localhost:3000/');
         } else {
+          console.log('well, shit')
           setEmail('');
           setPassword('');
           localStorage.clear();
@@ -55,17 +58,17 @@ const Login = () => {
   };
 
   return ( <
-    div > {
+    div >
+    <h1>Login</h1>
+    {
       loading === true && < h1 > Login < /h1>} { errors === true && < h2 > Cannot log in with provided credentials < /h2 >
     } {
       loading === true && ( <
         form onSubmit = {
           onSubmit
         } >
-        <
-        label htmlFor = 'email' > Email address: < /label> <br / >
-        <
-        input name = 'email'
+        < label htmlFor = 'email' > Email address: < /label> <br / >
+        < input name = 'email'
         type = 'email'
         value = {
           email
@@ -75,28 +78,18 @@ const Login = () => {
         }
         />{' '} <
         br / >
-        <
-        label htmlFor = 'password' > Password: < /label> <br / >
-        <
-        input name = 'password'
+        < label htmlFor = 'password' > Password: < /label> <br / >
+        < input name = 'password'
         type = 'password'
-        value = {
-          password
-        }
+        value = { password }
         required onChange = {
           e => setPassword(e.target.value)
         }
-        />{' '} <
-        br / >
-        <
-        input type = 'submit'
+        />{' '} < br / >
+        < input type = 'submit'
         value = 'Login' / >
-        <
-        /form>
-      )
-    } <
-    /div>
-  );
+        < /form> )
+    } < /div> );
 };
 
 export default Login;

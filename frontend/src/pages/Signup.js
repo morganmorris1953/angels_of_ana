@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -12,9 +9,11 @@ const Signup = () => {
 
     useEffect(() => {
       if (localStorage.getItem('token') !== null) {
+        console.log('here is the token')
         // window.location.replace('http://localhost:3000/pages/signup');
       } else {
         setLoading(false);
+        console.log('no token here')
       }
     }, []);
 
@@ -27,7 +26,8 @@ const Signup = () => {
         "password2": password2
       };
 
-      fetch('http://127.0.0.1:8000/api/v1/angels_app/auth/login/', {
+      /* fetch('http://127.0.0.1:8000/api/v1/angels_app/auth/login/', { */
+      fetch('http://127.0.0.1:8000/auth/register/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ const Signup = () => {
           if (data.key) {
             localStorage.clear();
             localStorage.setItem('token', data.key);
-            window.location.replace('http://localhost:3000/signup');
+            window.location.replace('http://localhost:3000/login');
           } else {
             setEmail('');
             setPassword1('');
@@ -102,21 +102,12 @@ const Signup = () => {
         value = {
           password2
         }
-        onChange = {
-          e => setPassword2(e.target.value)
-        }
-        required /
-        >
-        {
-          ' '
-        } <
-        br / >
-        <
-        input type = 'submit'
-        value = 'Signup' / >
-        <
-        /form> < /
-        div >
+        onChange = { e => setPassword2(e.target.value) }
+        required / >
+        { ' ' } < br / >
+        < input type = 'submit' value = 'Signup' / >
+        < /form>
+        < / div >
       );
     };
 
