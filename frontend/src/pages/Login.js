@@ -2,6 +2,7 @@ import React, {
   useState,
   useEffect
 } from 'react';
+import ProductAPI from '../api/ProductAPI.js'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,14 +20,21 @@ const Login = () => {
     /* } */
   /* }, []); */
 
-  const onSubmit = e => {
+  /* const saveEmail = async (email) => { */
+    /* console.log('im trying to get the user ID', email) */
+          /* const getEmail = await ProductAPI.fetchUserByEmail(email) */
+          /* console.log(getEmail) */
+/*  */
+  /* } */
+
+  const onSubmit =e => {
     e.preventDefault();
 
     const user = {
       "email": email,
       "password": password
     };
-    fetch('http://localhost:8000/login', {
+    fetch('http://localhost:8000/auth/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,20 +43,18 @@ const Login = () => {
         body: JSON.stringify(user)
       })
       .then((res) =>
-        // console.log(res.json()),
-        // console.log(res.key),
         res.json()
       )
       .then(data => {
         console.log('data: ', data)
-        console.log('user: ', user.id)
+        console.log('user: ', user)
         if (data.key) {
-          console.log('success')
           localStorage.clear();
           localStorage.setItem('token', data.key);
+          localStorage.setItem('email', JSON.stringify(email))
           window.location.replace('http://localhost:3000/');
+          /* saveEmail(user.email) */
         } else {
-          console.log('well, shit')
           setEmail('');
           setPassword('');
           localStorage.clear();
@@ -59,7 +65,6 @@ const Login = () => {
 
   return ( <
     div >
-    <h1>Login</h1>
     {
       loading === true && < h1 > Login < /h1>} { errors === true && < h2 > Cannot log in with provided credentials < /h2 >
     } {
@@ -86,8 +91,7 @@ const Login = () => {
           e => setPassword(e.target.value)
         }
         />{' '} < br / >
-        < input type = 'submit'
-        value = 'Login' / >
+        < input type = 'submit' value = 'Login' / >
         < /form> )
     } < /div> );
 };

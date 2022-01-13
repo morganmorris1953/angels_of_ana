@@ -25,9 +25,9 @@ from rest_framework.decorators import api_view
 #  from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 #  from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Variation, ItemVariation
 #  from .serializers import ( ItemSerializer, OrderSerializer, ItemDetailSerializer, AddressSerializer, PaymentSerializer)
-import random
-import string
-import stripe
+#  import random
+#  import string
+#  import stripe
 
 
 from django.db import models
@@ -38,6 +38,8 @@ from rest_framework import serializers
 from angels_app.serializers import ProductSerializer, CustomUserSerializer, CartSerializer#  , ProductListSerializer
 from angels_app.models import Product, ProductList, CustomUser, Cart
 from rest_framework.viewsets import ModelViewSet
+from django.views.decorators.csrf import csrf_exempt 
+from rest_framework.parsers import JSONParser 
 
 
 #  class ProductListViewSet(ModelViewSet):
@@ -49,7 +51,6 @@ class CartViewSet(ModelViewSet):
     serializer_class = CartSerializer
     def put(self, request):
         return Response(status=status.HTTP_200_OK)
-
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -58,35 +59,82 @@ class ProductViewSet(ModelViewSet):
 
 class LoginViewSet(ModelViewSet):
     http_method_names = ['GET']
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
     permission_classes = (IsAuthenticated)
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
 
-
-
-class CustomUserViewSet(ModelViewSet):
-    http_method_names = ['GET']
-    permission_classes = (IsAuthenticated)
+class CustomUserViewSet(ModelViewSet):#  viewsets.ViewSet
+    #  http_method_names = ['GET']
+    #  permission_classes = (IsAuthenticated)
     queryset = CustomUser.objects.all()
+    #  queryset = CustomUser.objects.distinct
     serializer_class = CustomUserSerializer
-    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    def retrieve(self, request, email=None):
+        queryset = CustomUser.objects.all()
+        user = get_object_or_404(queryset, email=email)
+        serializer=CustomUserSerializer(user)
+        return Response(serializer.data)
+    def sample_view(request):
+        current_user = request.user
+        print(current_user.id)
+      
 
-class CustomUser(APIView):
-    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
-    permission_classes = (IsAuthenticated)
+@csrf_exempt
+def user_api(request):
+    if request.method=='GET':
+        email = request.GET.get('email')
+        #  users = CustomUser.objects.get(email=email)
+        user = get_object_or_404(CustomUser, email=email)
+        print(user)
+        print(user.id)
+        return JsonResponse({'user_id': user.id})
 
-    @classmethod
-    def get_extra_actions(cls):
-        return []
 
-    def get(self, request, format=None):
-        print('from user API')
-        content = {
-            'user': str(request.user),
-            'auth': str(request.auth)}
-        print(content)
-        return Response(content)
+@classmethod
+def get_extra_actions(cls):
+    return []
+
+def get(self, request, format=None):
+    print('from user API')
+    content = {
+        'user': str(request.user),
+        'auth': str(request.auth)}
+    print(content)
+    return Response(content)
+
+
+
+    #  def retrieve(self, request):
+        #  return Response()
+    #  authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+#
+#  class CustomUser(APIView):
+    #  authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    #  permission_classes = (IsAuthenticated)
+
+#  class CustomUserViewSet(viewsets.ViewSet):
+    #  authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    #  permission_classes = (IsAuthenticated)
+    #  def get(self, request, format=None):
+        #  content = {
+            #  'user': str(request.user),  # `django.contrib.auth.User` instance.
+            #  'auth': str(request.auth),  # None
+        #  }
+        #  return Response(content)
+
+#
+    #  def list(self, request):
+        #  queryset = User.objects.all()
+        #  serializer = UserSerializer(queryset, many=True)
+        #  return Response(serializer.data)
+#
+    #  def retrieve(self, request, pk=None):
+        #  queryset = User.objects.all()
+        #  user = get_object_or_404(queryset, pk=pk)
+        #  serializer = UserSerializer(user)
+        #  return Response(serializer.data)
+
 
 
 class SignupViewSet(generic.CreateView):
@@ -103,7 +151,7 @@ def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
-    serializer = UserSerializer(request.user)
+    serializer = CustomUserSerializer(request.user)
     return Response(serializer.data)
 
 #  class UserList(APIView):

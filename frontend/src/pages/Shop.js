@@ -16,6 +16,7 @@ import {Link} from 'react-router-dom'
 
 function Shop(props) {
   const [selectedList, setSelectedList] = useState([])
+  /* if () */
 // const [clientSecret, setClientSecret] = useState("");
 // const [email, setEmail] = useState("");
 // const [password1, setPassword1] = useState("");
@@ -37,7 +38,7 @@ useEffect(()=>{
 }, [])
 
 const handleSubmit = async (id) => {
-  console.log('id: ', id)
+  /* console.log('product id: ', id) */
   /* console.log("Patch Info: ", patch) */
   /* if (id==1){ */
     /* addedPatch = patch1 */
@@ -45,15 +46,16 @@ const handleSubmit = async (id) => {
   /* } */
   const getProdInfo = await ProductAPI.fetchProductByID(id)
 console.log('ProdInfo: ', getProdInfo)
-    const addProd = await ProductAPI.addToCart(getProdInfo.id )
-  /* console.log(id) */
-  /* setID(id => id+1) */
-  /* return(addProd) */
-        /* handleSubmit() */
-  /* setSelectedList(selectedList => [...selectedList, id]) */
+const getUserID = await ProductAPI.fetchUser()
+console.log('shop user ID: ', getUserID.user_id)
+/* if (getUserID.id==null){ */
+/* alert("You must be signed in to add products to your cart") */
+/* } */
+/* else { */
+    const addProd = await ProductAPI.addToCart(getProdInfo.id, getUserID.user_id )
   console.log('addProd: ', addProd)
+/* } */
 }
-
 
 
   /* const response = fetch('localhost:8000/products').then((res) => res.json()) */
@@ -95,12 +97,12 @@ return (
 
         <ProductContainer />
 
-
         <div style={{flex: 1, resizeMode: 'contain', padding: '20px'}}>
           <img src={prod1} alt="" />
           <label htmlFor="patch1">Patch 1: $40 &emsp;</label>
           <button id='patch1' onClick={()=>handleSubmit(2)}>Add To Cart</button>
         </div>
+
 
         <div style={{flex: 1, resizeMode: 'contain', padding: '20px'}}>
           <img src={prod2} alt="" />

@@ -10,12 +10,17 @@ class CartSerializer(ModelSerializer):
 class CustomUserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'password', 'purchaseList']
+        fields = ['id', 'email', 'password']
 
 class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'name', 'price', 'description']
+
+
+#  class UserSerializer(serializers.ModelSerializer):
+    #  class Meta: model=CustomUser
+    #  fields=('id','name','email','country','city','needs','urgency','details')
 
 ## Serializes new user sign ups that responds with the new user's information including a new token.
 #  class UserSerializerWithToken(serializers.ModelSerializer):

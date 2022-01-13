@@ -10,18 +10,24 @@ router = DefaultRouter()
 router.register(r"cart", CartViewSet, basename='cart')
 router.register(r"products", ProductViewSet, basename='products')
 #  router.register(r"login", LoginViewSet, basename='login')
-router.register(r'signup/', SignupViewSet, basename='signup')
-router.register(r'customuser/', CustomUserViewSet, basename='user'),
+#  router.register(r'signup', SignupViewSet, basename='signup')
+router.register(r'users', CustomUserViewSet, basename='user')
+user_details = CustomUserViewSet.as_view({'get': 'retrieve'})
+
+#  router.register(r'user_details', user_details, basename='user_details')
 urlpatterns = router.urls
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('auth/', include('rest_auth.urls')),
     path('auth/register/', include('rest_auth.registration.urls'), name='signup'),
-    #  path('login/', include('api_auth/login/'), name='login'),
+    path('get_email/', views.user_api),
+    #  url(r'^user',views.userApi),
+    #  path('login/', include('rest-auth/login/'), name='login'),
     #  path('logout/', include('api-auth/logout'), name='logout'),
     #  path('<int:CustomUser>/cart', CustomUserViewSet.as_view, name='customuser'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('current_user/', current_user),
+    path('api-auth/', include('rest_framework.urls')),
+    #  path('current_user/', current_user),
     #  path('users/', UserList.as_view()),
 ]
   

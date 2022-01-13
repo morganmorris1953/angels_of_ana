@@ -10,24 +10,44 @@ import Shop from './Shop.js'
 function Cart() {
 const [selectedProducts, setSelectedProducts] = useState([])
 console.log('selectedProducts: ', selectedProducts)
+const [displayProducts, setDisplayProducts] = useState([])
+/* console.log('displayProducts: ', displayProducts) */
 const displayedArr = []
 /* const params = useParams() */
 /* console.log("selectedList: ", Shop.selectedList) */
 useEffect(() => {
   getProds()
 }, [])
+
+const getInfo = async () => {
+  const getUserID = await ProductAPI.fetchUser()
+
+}
+
+
 const getProds = async () => {
   const data = await ProductAPI.fetchAllCartList()
-  if (data){
+  getInfo()
+  data.forEach(element => console.log('element: ', element.user_id))
+  /* console.log('data: ',data) */
+/* console.log('cart user ID: ', getUserID.user_id) */
+if (data) {
+  /* if (data.user_id==getUserID.user_id){ */
     setSelectedProducts(data)
     for (let i=0; i <data.length; i++) {
-     const displayedProd = await ProductAPI.fetchProductByID(data[i].product_id) 
+     const displayedProd = await ProductAPI.fetchProductByID(data[i].product_id)
       displayedArr.push(displayedProd)
-      console.log('displayedArr: ', displayedArr)
     }
-    /* selectedProducts gives user_id and product_id*/
+  data.forEach(element => getUserID.user_id==(element.user_id ? setDisplayProducts(element) : console.log('not adding this one')))
+    setDisplayProducts(displayedArr)
+    console.log('displayedArr: ', displayedArr)
+  /* } */
   }
 }
+
+
+
+
      const removeProduct = async (id) => {
       const remove = await ProductAPI.deleteCartItem(id)
         getProds()
@@ -36,7 +56,7 @@ const getProds = async () => {
 
    const renderProducts = () => {
      return(
-        displayedArr.map((item, index) => {
+        displayProducts.map((item, index) => {
       return(
         <div>
           <br/>
@@ -79,7 +99,6 @@ export default Cart;
 /* return props.products.map((product, index) => { */
 /* return ( */
 /* <tr key={index}> */
-/* <td><Link to={`${product.id}/`}>{ product.name }</Link></td> */
 /* <td>{ product.price }</td> */
 /* <td>{ product.description }</td> */
 /* </tr> */
